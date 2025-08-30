@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import {
   FaGithub,
   FaLinkedin,
@@ -9,6 +11,10 @@ import {
   FaDownload,
   FaBars,
   FaTimes,
+  FaRocket,
+  FaCode,
+  FaPalette,
+  FaLightbulb,
 } from "react-icons/fa";
 import {
   SiReact,
@@ -20,492 +26,643 @@ import {
   SiPostgresql,
   SiDocker,
 } from "react-icons/si";
-import { useState } from "react";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Floating particles effect
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const newParticles = Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 4 + 2,
+      duration: Math.random() * 20 + 10,
+    }));
+    setParticles(newParticles);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden"
+    >
+      {/* Animated Background Particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {particles.map((particle) => (
+          <motion.div
+            key={particle.id}
+            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: particle.duration,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Gradient Orbs */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-50 border-b border-slate-200 dark:border-slate-700">
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="fixed top-0 w-full bg-white/10 backdrop-blur-xl border-b border-white/20 z-50"
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-slate-900 dark:text-white">
+            <motion.div
+              className="text-xl font-bold text-white"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
               Portfolio
-            </div>
+            </motion.div>
             <div className="hidden md:flex space-x-8">
-              <a
-                href="#about"
-                className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-              >
-                About
-              </a>
-              <a
-                href="#skills"
-                className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-              >
-                Skills
-              </a>
-              <a
-                href="#projects"
-                className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-              >
-                Projects
-              </a>
-              <a
-                href="#contact"
-                className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-              >
-                Contact
-              </a>
+              {["about", "skills", "projects", "contact"].map((item) => (
+                <motion.a
+                  key={item}
+                  href={`#${item}`}
+                  className="text-white/80 hover:text-white transition-colors relative group"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full" />
+                </motion.a>
+              ))}
             </div>
-            <button
-              className="md:hidden text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+            <motion.button
+              className="md:hidden text-white hover:text-purple-400"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
+            </motion.button>
           </div>
           {/* Mobile menu */}
-          {isMenuOpen && (
-            <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                <a
-                  href="#about"
-                  className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{
+              height: isMenuOpen ? "auto" : 0,
+              opacity: isMenuOpen ? 1 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white/10 backdrop-blur-xl border-t border-white/20 overflow-hidden"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {["about", "skills", "projects", "contact"].map((item) => (
+                <motion.a
+                  key={item}
+                  href={`#${item}`}
+                  className="block px-3 py-2 text-white/80 hover:text-white transition-colors"
                   onClick={() => setIsMenuOpen(false)}
+                  whileHover={{ x: 10 }}
+                  transition={{ type: "spring", stiffness: 400 }}
                 >
-                  About
-                </a>
-                <a
-                  href="#skills"
-                  className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Skills
-                </a>
-                <a
-                  href="#projects"
-                  className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Projects
-                </a>
-                <a
-                  href="#contact"
-                  className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Contact
-                </a>
-              </div>
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </motion.a>
+              ))}
             </div>
-          )}
+          </motion.div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+      <motion.section
+        style={{ y, opacity }}
+        className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center">
-            <div className="mb-8">
-              <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                <span className="text-4xl font-bold text-white">JD</span>
-              </div>
-              <h1 className="text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white mb-4">
+            <motion.div
+              className="mb-8"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                className="w-40 h-40 mx-auto mb-8 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 flex items-center justify-center relative overflow-hidden"
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 animate-spin-slow" />
+                <div className="relative z-10 w-36 h-36 rounded-full bg-slate-900 flex items-center justify-center">
+                  <span className="text-5xl font-bold text-white">JD</span>
+                </div>
+              </motion.div>
+
+              <motion.h1
+                className="text-5xl sm:text-7xl font-bold text-white mb-6"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 Hi, I'm{" "}
-                <span className="text-blue-600 dark:text-blue-400">
+                <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
                   John Doe
                 </span>
-              </h1>
-              <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 mb-8">
+              </motion.h1>
+
+              <motion.p
+                className="text-2xl sm:text-3xl text-white/80 mb-8"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 Full-Stack Developer & UI/UX Designer
-              </p>
-              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-8">
+              </motion.p>
+
+              <motion.p
+                className="text-lg text-white/60 max-w-3xl mx-auto mb-12"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
                 I create beautiful, functional, and user-centered digital
                 experiences. Passionate about clean code, innovative design, and
                 solving complex problems.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
+              </motion.p>
+
+              <motion.div
+                className="flex flex-col sm:flex-row gap-6 justify-center"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              >
+                <motion.a
                   href="#contact"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors inline-flex items-center gap-2"
+                  className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full font-semibold overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400 }}
                 >
-                  Get In Touch
-                </a>
-                <a
+                  <span className="relative z-10 flex items-center gap-2">
+                    <FaRocket className="group-hover:animate-bounce" />
+                    Get In Touch
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.a>
+
+                <motion.a
                   href="/resume.pdf"
-                  className="border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 px-8 py-3 rounded-lg font-semibold transition-colors inline-flex items-center gap-2"
+                  className="group relative px-8 py-4 border-2 border-white/30 text-white rounded-full font-semibold overflow-hidden backdrop-blur-sm"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400 }}
                 >
-                  <FaDownload />
-                  Download Resume
-                </a>
-              </div>
-            </div>
+                  <span className="relative z-10 flex items-center gap-2">
+                    <FaDownload className="group-hover:animate-bounce" />
+                    Download Resume
+                  </span>
+                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.a>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* About Section */}
-      <section
+      <ScrollSection
         id="about"
-        className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
       >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">
+          <motion.h2
+            className="text-4xl font-bold text-center text-white mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             About Me
-          </h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="text-lg text-slate-600 dark:text-slate-300 mb-6">
+          </motion.h2>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <p className="text-lg text-white/80 mb-8 leading-relaxed">
                 I'm a passionate full-stack developer with over 5 years of
                 experience building web applications. I specialize in React,
                 Node.js, and modern web technologies, creating scalable and
                 maintainable solutions.
               </p>
-              <p className="text-lg text-slate-600 dark:text-slate-300 mb-6">
+              <p className="text-lg text-white/80 mb-8 leading-relaxed">
                 When I'm not coding, you can find me exploring new technologies,
                 contributing to open-source projects, or sharing knowledge with
                 the developer community.
               </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+              <div className="grid grid-cols-2 gap-6">
+                <motion.div
+                  className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-3xl font-bold text-purple-400 mb-2">
                     50+
                   </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-300">
+                  <div className="text-sm text-white/60">
                     Projects Completed
                   </div>
-                </div>
-                <div className="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                </motion.div>
+                <motion.div
+                  className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-3xl font-bold text-blue-400 mb-2">
                     5+
                   </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-300">
-                    Years Experience
+                  <div className="text-sm text-white/60">Years Experience</div>
+                </motion.div>
+              </div>
+            </motion.div>
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              {[
+                {
+                  icon: FaCode,
+                  title: "Education",
+                  content: "B.S. Computer Science, University of Technology",
+                },
+                {
+                  icon: FaPalette,
+                  title: "Location",
+                  content: "San Francisco, CA (Open to Remote)",
+                },
+                {
+                  icon: FaLightbulb,
+                  title: "Interests",
+                  content: "Open Source, AI/ML, Web3, Travel",
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  className="p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
+                  whileHover={{ scale: 1.02, x: 10 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                      <item.icon className="text-white text-xl" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-white mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-white/70">{item.content}</p>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                  Education
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300">
-                  B.S. Computer Science, University of Technology
-                </p>
-              </div>
-              <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                  Location
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300">
-                  San Francisco, CA (Open to Remote)
-                </p>
-              </div>
-              <div className="p-6 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                  Interests
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300">
-                  Open Source, AI/ML, Web3, Travel
-                </p>
-              </div>
-            </div>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
       {/* Skills Section */}
-      <section id="skills" className="py-16 px-4 sm:px-6 lg:px-8">
+      <ScrollSection id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">
+          <motion.h2
+            className="text-4xl font-bold text-center text-white mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             Skills & Technologies
-          </h2>
+          </motion.h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiReact className="text-4xl mx-auto mb-4 text-blue-500" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                React
-              </h3>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiNextdotjs className="text-4xl mx-auto mb-4 text-slate-900 dark:text-white" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                Next.js
-              </h3>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiTypescript className="text-4xl mx-auto mb-4 text-blue-600" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                TypeScript
-              </h3>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiTailwindcss className="text-4xl mx-auto mb-4 text-cyan-500" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                Tailwind CSS
-              </h3>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiNodedotjs className="text-4xl mx-auto mb-4 text-green-600" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                Node.js
-              </h3>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiMongodb className="text-4xl mx-auto mb-4 text-green-500" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                MongoDB
-              </h3>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiPostgresql className="text-4xl mx-auto mb-4 text-blue-600" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                PostgreSQL
-              </h3>
-            </div>
-            <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <SiDocker className="text-4xl mx-auto mb-4 text-blue-500" />
-              <h3 className="font-semibold text-slate-900 dark:text-white">
-                Docker
-              </h3>
-            </div>
+            {[
+              { icon: SiReact, name: "React", color: "text-blue-500" },
+              { icon: SiNextdotjs, name: "Next.js", color: "text-white" },
+              {
+                icon: SiTypescript,
+                name: "TypeScript",
+                color: "text-blue-600",
+              },
+              {
+                icon: SiTailwindcss,
+                name: "Tailwind CSS",
+                color: "text-cyan-500",
+              },
+              { icon: SiNodedotjs, name: "Node.js", color: "text-green-600" },
+              { icon: SiMongodb, name: "MongoDB", color: "text-green-500" },
+              {
+                icon: SiPostgresql,
+                name: "PostgreSQL",
+                color: "text-blue-600",
+              },
+              { icon: SiDocker, name: "Docker", color: "text-blue-500" },
+            ].map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                className="text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-colors"
+                whileHover={{ scale: 1.05, y: -10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <skill.icon
+                  className={`text-5xl mx-auto mb-4 ${skill.color}`}
+                />
+                <h3 className="font-semibold text-white">{skill.name}</h3>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
       {/* Projects Section */}
-      <section
+      <ScrollSection
         id="projects"
-        className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
       >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">
+          <motion.h2
+            className="text-4xl font-bold text-center text-white mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             Featured Projects
-          </h2>
+          </motion.h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Project 1 */}
-            <div className="bg-slate-50 dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">
-                  E-Commerce Platform
-                </span>
-              </div>
-              <div className="p-6">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                  E-Commerce Platform
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  A full-stack e-commerce solution with React, Node.js, and
-                  MongoDB. Features include user authentication, payment
-                  processing, and admin dashboard.
-                </p>
-                <div className="flex gap-2 mb-4">
-                  <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
-                    React
+            {[
+              {
+                title: "E-Commerce Platform",
+                description:
+                  "A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.",
+                gradient: "from-blue-500 to-purple-600",
+                tags: ["React", "Node.js", "MongoDB"],
+              },
+              {
+                title: "Task Manager App",
+                description:
+                  "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+                gradient: "from-green-500 to-teal-600",
+                tags: ["Next.js", "TypeScript", "PostgreSQL"],
+              },
+              {
+                title: "AI Chat Application",
+                description:
+                  "An intelligent chat application powered by AI, featuring natural language processing, sentiment analysis, and smart responses.",
+                gradient: "from-orange-500 to-red-600",
+                tags: ["React", "Python", "OpenAI"],
+              },
+            ].map((project, index) => (
+              <motion.div
+                key={project.title}
+                className="group relative bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-purple-400/50 transition-all duration-300"
+                whileHover={{ scale: 1.02, y: -10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div
+                  className={`h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}
+                >
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+                  <span className="text-white text-2xl font-bold relative z-10">
+                    {project.title}
                   </span>
-                  <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
-                    Node.js
-                  </span>
-                  <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs rounded">
-                    MongoDB
-                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </div>
-                <div className="flex gap-2">
-                  <a
-                    href="#"
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-                  >
-                    Live Demo
-                  </a>
-                  <a
-                    href="#"
-                    className="text-slate-600 dark:text-slate-400 hover:underline text-sm"
-                  >
-                    GitHub
-                  </a>
+                <div className="p-8">
+                  <h3 className="font-semibold text-white mb-4 text-xl">
+                    {project.title}
+                  </h3>
+                  <p className="text-white/70 mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-white/20 text-white/90 text-xs rounded-full backdrop-blur-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    <motion.a
+                      href="#"
+                      className="text-purple-400 hover:text-purple-300 text-sm font-medium"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      Live Demo
+                    </motion.a>
+                    <motion.a
+                      href="#"
+                      className="text-white/60 hover:text-white/80 text-sm font-medium"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      GitHub
+                    </motion.a>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Project 2 */}
-            <div className="bg-slate-50 dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">
-                  Task Manager
-                </span>
-              </div>
-              <div className="p-6">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                  Task Manager App
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  A collaborative task management application with real-time
-                  updates, drag-and-drop functionality, and team collaboration
-                  features.
-                </p>
-                <div className="flex gap-2 mb-4">
-                  <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
-                    Next.js
-                  </span>
-                  <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded">
-                    TypeScript
-                  </span>
-                  <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
-                    PostgreSQL
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <a
-                    href="#"
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-                  >
-                    Live Demo
-                  </a>
-                  <a
-                    href="#"
-                    className="text-slate-600 dark:text-slate-400 hover:underline text-sm"
-                  >
-                    GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Project 3 */}
-            <div className="bg-slate-50 dark:bg-slate-700 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                <span className="text-white text-2xl font-bold">
-                  AI Chat App
-                </span>
-              </div>
-              <div className="p-6">
-                <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                  AI Chat Application
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  An intelligent chat application powered by AI, featuring
-                  natural language processing, sentiment analysis, and smart
-                  responses.
-                </p>
-                <div className="flex gap-2 mb-4">
-                  <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
-                    React
-                  </span>
-                  <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
-                    Python
-                  </span>
-                  <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded">
-                    OpenAI
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <a
-                    href="#"
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-                  >
-                    Live Demo
-                  </a>
-                  <a
-                    href="#"
-                    className="text-slate-600 dark:text-slate-400 hover:underline text-sm"
-                  >
-                    GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8">
+      <ScrollSection id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-12">
+          <motion.h2
+            className="text-4xl font-bold text-white mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             Get In Touch
-          </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
+          </motion.h2>
+          <motion.p
+            className="text-lg text-white/70 mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             I'm always interested in hearing about new opportunities and
             exciting projects. Feel free to reach out if you'd like to connect!
-          </p>
-          <div className="flex justify-center space-x-6 mb-8">
-            <a
-              href="mailto:john.doe@example.com"
-              className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <FaEnvelope className="text-xl" />
-              <span>Email</span>
-            </a>
-            <a
-              href="https://github.com/johndoe"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <FaGithub className="text-xl" />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="https://linkedin.com/in/johndoe"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <FaLinkedin className="text-xl" />
-              <span>LinkedIn</span>
-            </a>
-            <a
-              href="https://twitter.com/johndoe"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <FaTwitter className="text-xl" />
-              <span>Twitter</span>
-            </a>
-          </div>
-          <div className="bg-white dark:bg-slate-800 rounded-lg p-8 shadow-sm">
+          </motion.p>
+          <motion.div
+            className="flex justify-center space-x-8 mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            {[
+              {
+                icon: FaEnvelope,
+                href: "mailto:john.doe@example.com",
+                label: "Email",
+              },
+              {
+                icon: FaGithub,
+                href: "https://github.com/johndoe",
+                label: "GitHub",
+              },
+              {
+                icon: FaLinkedin,
+                href: "https://linkedin.com/in/johndoe",
+                label: "LinkedIn",
+              },
+              {
+                icon: FaTwitter,
+                href: "https://twitter.com/johndoe",
+                label: "Twitter",
+              },
+            ].map((social, index) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group"
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 group-hover:border-purple-400/50 transition-colors">
+                  <social.icon className="text-xl group-hover:scale-110 transition-transform" />
+                </div>
+                <span>{social.label}</span>
+              </motion.a>
+            ))}
+          </motion.div>
+          <motion.div
+            className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            viewport={{ once: true }}
+          >
             <form className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <input
+                <motion.input
                   type="text"
                   placeholder="Your Name"
-                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+                  className="w-full px-4 py-4 border border-white/30 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder-white/50"
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 />
-                <input
+                <motion.input
                   type="email"
                   placeholder="Your Email"
-                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+                  className="w-full px-4 py-4 border border-white/30 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder-white/50"
+                  whileFocus={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 />
               </div>
-              <textarea
+              <motion.textarea
                 placeholder="Your Message"
                 rows={5}
-                className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
-              ></textarea>
-              <button
+                className="w-full px-4 py-4 border border-white/30 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white/10 backdrop-blur-sm text-white placeholder-white/50 resize-none"
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              />
+              <motion.button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+                className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400 }}
               >
                 Send Message
-              </button>
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </ScrollSection>
 
       {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 bg-slate-900 dark:bg-slate-950 text-center">
+      <motion.footer
+        className="py-12 px-4 sm:px-6 lg:px-8 bg-black/20 backdrop-blur-sm text-center border-t border-white/10"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <div className="max-w-6xl mx-auto">
-          <p className="text-slate-400">
+          <p className="text-white/60">
             © 2024 John Doe. Built with Next.js and Tailwind CSS.
           </p>
         </div>
-      </footer>
+      </motion.footer>
     </div>
+  );
+}
+
+// Scroll Section Component
+function ScrollSection({ id, className, children }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.section
+      ref={ref}
+      id={id}
+      className={className}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.8 }}
+    >
+      {children}
+    </motion.section>
   );
 }
