@@ -15,6 +15,13 @@ import {
   FaCode,
   FaPalette,
   FaLightbulb,
+  FaBriefcase,
+  FaGraduationCap,
+  FaAward,
+  FaStar,
+  FaExternalLinkAlt,
+  FaPlay,
+  FaPause,
 } from "react-icons/fa";
 import {
   SiReact,
@@ -25,10 +32,15 @@ import {
   SiMongodb,
   SiPostgresql,
   SiDocker,
+  SiJavascript,
+  SiPython,
+  SiGit,
+  SiFigma,
 } from "react-icons/si";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -42,12 +54,13 @@ export default function Home() {
   const [particles, setParticles] = useState([]);
 
   useEffect(() => {
-    const newParticles = Array.from({ length: 20 }, (_, i) => ({
+    const newParticles = Array.from({ length: 30 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 4 + 2,
-      duration: Math.random() * 20 + 10,
+      size: Math.random() * 6 + 2,
+      duration: Math.random() * 25 + 15,
+      delay: Math.random() * 5,
     }));
     setParticles(newParticles);
   }, []);
@@ -57,12 +70,12 @@ export default function Home() {
       ref={containerRef}
       className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden"
     >
-      {/* Animated Background Particles */}
+      {/* Enhanced Animated Background Particles */}
       <div className="absolute inset-0 overflow-hidden">
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
+            className="absolute w-1 h-1 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full"
             style={{
               left: `${particle.x}%`,
               top: `${particle.y}%`,
@@ -70,23 +83,61 @@ export default function Home() {
               height: `${particle.size}px`,
             }}
             animate={{
-              y: [0, -100, 0],
+              y: [0, -150, 0],
               opacity: [0, 1, 0],
+              scale: [0, 1, 0],
             }}
             transition={{
               duration: particle.duration,
+              delay: particle.delay,
               repeat: Infinity,
-              ease: "linear",
+              ease: "easeInOut",
             }}
           />
         ))}
       </div>
 
-      {/* Gradient Orbs */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      {/* Enhanced Gradient Orbs with Animation */}
+      <motion.div
+        className="absolute top-20 left-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-blue-500/15 rounded-full blur-3xl"
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.1, 0.4, 0.1],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
 
-      {/* Navigation */}
+      {/* Enhanced Navigation */}
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -96,25 +147,30 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <motion.div
-              className="text-xl font-bold text-white"
+              className="text-xl font-bold text-white flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                <FaCode className="text-white text-sm" />
+              </div>
               Portfolio
             </motion.div>
             <div className="hidden md:flex space-x-8">
-              {["about", "skills", "projects", "contact"].map((item) => (
-                <motion.a
-                  key={item}
-                  href={`#${item}`}
-                  className="text-white/80 hover:text-white transition-colors relative group"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full" />
-                </motion.a>
-              ))}
+              {["about", "experience", "skills", "projects", "contact"].map(
+                (item) => (
+                  <motion.a
+                    key={item}
+                    href={`#${item}`}
+                    className="text-white/80 hover:text-white transition-colors relative group"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full" />
+                  </motion.a>
+                ),
+              )}
             </div>
             <motion.button
               className="md:hidden text-white hover:text-purple-400"
@@ -125,7 +181,7 @@ export default function Home() {
               {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
             </motion.button>
           </div>
-          {/* Mobile menu */}
+          {/* Enhanced Mobile menu */}
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{
@@ -136,24 +192,26 @@ export default function Home() {
             className="md:hidden bg-white/10 backdrop-blur-xl border-t border-white/20 overflow-hidden"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {["about", "skills", "projects", "contact"].map((item) => (
-                <motion.a
-                  key={item}
-                  href={`#${item}`}
-                  className="block px-3 py-2 text-white/80 hover:text-white transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                  whileHover={{ x: 10 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
-                </motion.a>
-              ))}
+              {["about", "experience", "skills", "projects", "contact"].map(
+                (item) => (
+                  <motion.a
+                    key={item}
+                    href={`#${item}`}
+                    className="block px-3 py-2 text-white/80 hover:text-white transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                    whileHover={{ x: 10 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </motion.a>
+                ),
+              )}
             </div>
           </motion.div>
         </div>
       </motion.nav>
 
-      {/* Hero Section */}
+      {/* Enhanced Hero Section */}
       <motion.section
         style={{ y, opacity }}
         className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative"
@@ -166,40 +224,91 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
+              {/* Enhanced Avatar with Multiple Animations */}
               <motion.div
-                className="w-40 h-40 mx-auto mb-8 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 flex items-center justify-center relative overflow-hidden"
+                className="w-48 h-48 mx-auto mb-8 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 flex items-center justify-center relative overflow-hidden"
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
+                animate={{
+                  boxShadow: [
+                    "0 0 20px rgba(147, 51, 234, 0.3)",
+                    "0 0 40px rgba(147, 51, 234, 0.6)",
+                    "0 0 20px rgba(147, 51, 234, 0.3)",
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 animate-spin-slow" />
-                <div className="relative z-10 w-36 h-36 rounded-full bg-slate-900 flex items-center justify-center">
-                  <span className="text-5xl font-bold text-white">JD</span>
+                <div className="relative z-10 w-44 h-44 rounded-full bg-slate-900 flex items-center justify-center">
+                  <span className="text-6xl font-bold text-white">JD</span>
                 </div>
+                {/* Floating elements around avatar */}
+                <motion.div
+                  className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full"
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-2 -left-2 w-4 h-4 bg-green-400 rounded-full"
+                  animate={{
+                    y: [0, 10, 0],
+                    rotate: [360, 0],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                />
               </motion.div>
 
+              {/* Enhanced Title with Typewriter Effect */}
               <motion.h1
-                className="text-5xl sm:text-7xl font-bold text-white mb-6"
+                className="text-6xl sm:text-8xl font-bold text-white mb-6"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 Hi, I'm{" "}
-                <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
                   John Doe
                 </span>
               </motion.h1>
 
+              {/* Enhanced Subtitle with Floating Animation */}
               <motion.p
                 className="text-2xl sm:text-3xl text-white/80 mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
+                animate={{
+                  y: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
               >
                 Full-Stack Developer & UI/UX Designer
               </motion.p>
 
+              {/* Enhanced Description */}
               <motion.p
-                className="text-lg text-white/60 max-w-3xl mx-auto mb-12"
+                className="text-lg text-white/60 max-w-3xl mx-auto mb-12 leading-relaxed"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -209,6 +318,7 @@ export default function Home() {
                 solving complex problems.
               </motion.p>
 
+              {/* Enhanced CTA Buttons */}
               <motion.div
                 className="flex flex-col sm:flex-row gap-6 justify-center"
                 initial={{ opacity: 0, y: 30 }}
@@ -217,45 +327,77 @@ export default function Home() {
               >
                 <motion.a
                   href="#contact"
-                  className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full font-semibold overflow-hidden"
+                  className="group relative px-10 py-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full font-semibold overflow-hidden"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <span className="relative z-10 flex items-center gap-3">
                     <FaRocket className="group-hover:animate-bounce" />
                     Get In Touch
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </motion.a>
 
                 <motion.a
                   href="/resume.pdf"
-                  className="group relative px-8 py-4 border-2 border-white/30 text-white rounded-full font-semibold overflow-hidden backdrop-blur-sm"
+                  className="group relative px-10 py-4 border-2 border-white/30 text-white rounded-full font-semibold overflow-hidden backdrop-blur-sm"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <span className="relative z-10 flex items-center gap-3">
                     <FaDownload className="group-hover:animate-bounce" />
                     Download Resume
                   </span>
                   <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.a>
               </motion.div>
+
+              {/* Stats Section */}
+              <motion.div
+                className="grid grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1 }}
+              >
+                {[
+                  { number: "50+", label: "Projects", icon: FaCode },
+                  { number: "5+", label: "Years", icon: FaBriefcase },
+                  { number: "100%", label: "Satisfaction", icon: FaStar },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    className="text-center"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <motion.div
+                      className="text-3xl font-bold text-purple-400 mb-2"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 1.2 + index * 0.2, type: "spring" }}
+                    >
+                      {stat.number}
+                    </motion.div>
+                    <div className="text-white/60 text-sm">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </motion.div>
             </motion.div>
           </div>
         </div>
       </motion.section>
 
-      {/* About Section */}
+      {/* Enhanced About Section */}
       <ScrollSection
         id="about"
         className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
       >
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl font-bold text-center text-white mb-16"
+            className="text-5xl font-bold text-center text-white mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -283,7 +425,7 @@ export default function Home() {
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <motion.div
-                  className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
+                  className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -295,7 +437,7 @@ export default function Home() {
                   </div>
                 </motion.div>
                 <motion.div
-                  className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
+                  className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -315,7 +457,7 @@ export default function Home() {
             >
               {[
                 {
-                  icon: FaCode,
+                  icon: FaGraduationCap,
                   title: "Education",
                   content: "B.S. Computer Science, University of Technology",
                 },
@@ -332,7 +474,7 @@ export default function Home() {
               ].map((item, index) => (
                 <motion.div
                   key={item.title}
-                  className="p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20"
+                  className="p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-all duration-300"
                   whileHover={{ scale: 1.02, x: 10 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   initial={{ opacity: 0, y: 30 }}
@@ -341,9 +483,13 @@ export default function Home() {
                   viewport={{ once: true }}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
+                    <motion.div
+                      className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
                       <item.icon className="text-white text-xl" />
-                    </div>
+                    </motion.div>
                     <div>
                       <h3 className="font-semibold text-white mb-1">
                         {item.title}
@@ -358,11 +504,161 @@ export default function Home() {
         </div>
       </ScrollSection>
 
-      {/* Skills Section */}
-      <ScrollSection id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* New Work Experience Section */}
+      <ScrollSection id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl font-bold text-center text-white mb-16"
+            className="text-5xl font-bold text-center text-white mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            Work Experience
+          </motion.h2>
+          <div className="space-y-12">
+            {[
+              {
+                company: "TechCorp Inc.",
+                position: "Senior Full-Stack Developer",
+                duration: "2022 - Present",
+                description:
+                  "Leading development of enterprise web applications using React, Node.js, and cloud technologies. Mentoring junior developers and implementing best practices.",
+                technologies: ["React", "Node.js", "AWS", "Docker", "MongoDB"],
+                achievements: [
+                  "Reduced load times by 40%",
+                  "Led team of 5 developers",
+                  "Implemented CI/CD pipeline",
+                ],
+              },
+              {
+                company: "StartupXYZ",
+                position: "Full-Stack Developer",
+                duration: "2020 - 2022",
+                description:
+                  "Built scalable web applications from scratch. Collaborated with design team to create intuitive user experiences.",
+                technologies: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
+                achievements: [
+                  "Built 3 major features",
+                  "Improved UX by 60%",
+                  "Reduced bugs by 30%",
+                ],
+              },
+              {
+                company: "Digital Agency",
+                position: "Frontend Developer",
+                duration: "2019 - 2020",
+                description:
+                  "Created responsive websites and web applications for various clients. Focused on performance and accessibility.",
+                technologies: ["React", "JavaScript", "CSS3", "WordPress"],
+                achievements: [
+                  "Delivered 15+ projects",
+                  "Achieved 95% client satisfaction",
+                  "Optimized performance",
+                ],
+              },
+            ].map((job, index) => (
+              <motion.div
+                key={job.company}
+                className="relative"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                {/* Timeline connector */}
+                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 to-blue-500" />
+
+                <div className="relative pl-20">
+                  {/* Timeline dot */}
+                  <motion.div
+                    className="absolute left-6 top-0 w-4 h-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full border-4 border-slate-900"
+                    whileHover={{ scale: 1.5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  />
+
+                  <motion.div
+                    className="p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-all duration-300"
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                      <div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                          {job.position}
+                        </h3>
+                        <p className="text-purple-400 font-semibold">
+                          {job.company}
+                        </p>
+                      </div>
+                      <motion.span
+                        className="text-white/60 text-sm bg-white/10 px-3 py-1 rounded-full"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        {job.duration}
+                      </motion.span>
+                    </div>
+
+                    <p className="text-white/70 mb-6 leading-relaxed">
+                      {job.description}
+                    </p>
+
+                    {/* Technologies */}
+                    <div className="mb-6">
+                      <h4 className="text-white font-semibold mb-3">
+                        Technologies:
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {job.technologies.map((tech) => (
+                          <motion.span
+                            key={tech}
+                            className="px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-full border border-purple-500/30"
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                          >
+                            {tech}
+                          </motion.span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Achievements */}
+                    <div>
+                      <h4 className="text-white font-semibold mb-3">
+                        Key Achievements:
+                      </h4>
+                      <ul className="space-y-2">
+                        {job.achievements.map((achievement, idx) => (
+                          <motion.li
+                            key={idx}
+                            className="flex items-center gap-2 text-white/70"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                            viewport={{ once: true }}
+                          >
+                            <FaAward className="text-yellow-400 text-sm" />
+                            {achievement}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </ScrollSection>
+
+      {/* Enhanced Skills Section */}
+      <ScrollSection
+        id="skills"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
+      >
+        <div className="max-w-6xl mx-auto">
+          <motion.h2
+            className="text-5xl font-bold text-center text-white mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -370,57 +666,159 @@ export default function Home() {
           >
             Skills & Technologies
           </motion.h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+          {/* Skill Categories */}
+          <div className="space-y-12">
             {[
-              { icon: SiReact, name: "React", color: "text-blue-500" },
-              { icon: SiNextdotjs, name: "Next.js", color: "text-white" },
               {
-                icon: SiTypescript,
-                name: "TypeScript",
-                color: "text-blue-600",
+                category: "Frontend",
+                skills: [
+                  {
+                    icon: SiReact,
+                    name: "React",
+                    color: "text-blue-500",
+                    level: 95,
+                  },
+                  {
+                    icon: SiNextdotjs,
+                    name: "Next.js",
+                    color: "text-white",
+                    level: 90,
+                  },
+                  {
+                    icon: SiTypescript,
+                    name: "TypeScript",
+                    color: "text-blue-600",
+                    level: 88,
+                  },
+                  {
+                    icon: SiTailwindcss,
+                    name: "Tailwind CSS",
+                    color: "text-cyan-500",
+                    level: 92,
+                  },
+                  {
+                    icon: SiJavascript,
+                    name: "JavaScript",
+                    color: "text-yellow-400",
+                    level: 95,
+                  },
+                ],
               },
               {
-                icon: SiTailwindcss,
-                name: "Tailwind CSS",
-                color: "text-cyan-500",
+                category: "Backend",
+                skills: [
+                  {
+                    icon: SiNodedotjs,
+                    name: "Node.js",
+                    color: "text-green-600",
+                    level: 90,
+                  },
+                  {
+                    icon: SiMongodb,
+                    name: "MongoDB",
+                    color: "text-green-500",
+                    level: 85,
+                  },
+                  {
+                    icon: SiPostgresql,
+                    name: "PostgreSQL",
+                    color: "text-blue-600",
+                    level: 82,
+                  },
+                  {
+                    icon: SiPython,
+                    name: "Python",
+                    color: "text-blue-500",
+                    level: 80,
+                  },
+                ],
               },
-              { icon: SiNodedotjs, name: "Node.js", color: "text-green-600" },
-              { icon: SiMongodb, name: "MongoDB", color: "text-green-500" },
               {
-                icon: SiPostgresql,
-                name: "PostgreSQL",
-                color: "text-blue-600",
+                category: "Tools & Others",
+                skills: [
+                  {
+                    icon: SiDocker,
+                    name: "Docker",
+                    color: "text-blue-500",
+                    level: 85,
+                  },
+                  {
+                    icon: SiGit,
+                    name: "Git",
+                    color: "text-orange-500",
+                    level: 90,
+                  },
+                  {
+                    icon: SiFigma,
+                    name: "Figma",
+                    color: "text-purple-500",
+                    level: 75,
+                  },
+                ],
               },
-              { icon: SiDocker, name: "Docker", color: "text-blue-500" },
-            ].map((skill, index) => (
+            ].map((category, categoryIndex) => (
               <motion.div
-                key={skill.name}
-                className="text-center p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-colors"
-                whileHover={{ scale: 1.05, y: -10 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                initial={{ opacity: 0, y: 50 }}
+                key={category.category}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.8, delay: categoryIndex * 0.2 }}
                 viewport={{ once: true }}
               >
-                <skill.icon
-                  className={`text-5xl mx-auto mb-4 ${skill.color}`}
-                />
-                <h3 className="font-semibold text-white">{skill.name}</h3>
+                <h3 className="text-2xl font-bold text-white mb-8 text-center">
+                  {category.category}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {category.skills.map((skill, index) => (
+                    <motion.div
+                      key={skill.name}
+                      className="p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-all duration-300"
+                      whileHover={{ scale: 1.05, y: -10 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.6,
+                        delay: categoryIndex * 0.2 + index * 0.1,
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="flex items-center gap-4 mb-4">
+                        <skill.icon className={`text-3xl ${skill.color}`} />
+                        <div>
+                          <h4 className="font-semibold text-white">
+                            {skill.name}
+                          </h4>
+                          <p className="text-white/60 text-sm">
+                            {skill.level}%
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="w-full bg-white/20 rounded-full h-2">
+                        <motion.div
+                          className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                          viewport={{ once: true }}
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </ScrollSection>
 
-      {/* Projects Section */}
-      <ScrollSection
-        id="projects"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
-      >
+      {/* Enhanced Projects Section */}
+      <ScrollSection id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl font-bold text-center text-white mb-16"
+            className="text-5xl font-bold text-center text-white mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -436,6 +834,9 @@ export default function Home() {
                   "A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.",
                 gradient: "from-blue-500 to-purple-600",
                 tags: ["React", "Node.js", "MongoDB"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
               },
               {
                 title: "Task Manager App",
@@ -443,6 +844,9 @@ export default function Home() {
                   "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
                 gradient: "from-green-500 to-teal-600",
                 tags: ["Next.js", "TypeScript", "PostgreSQL"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
               },
               {
                 title: "AI Chat Application",
@@ -450,6 +854,9 @@ export default function Home() {
                   "An intelligent chat application powered by AI, featuring natural language processing, sentiment analysis, and smart responses.",
                 gradient: "from-orange-500 to-red-600",
                 tags: ["React", "Python", "OpenAI"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
               },
             ].map((project, index) => (
               <motion.div
@@ -470,6 +877,16 @@ export default function Home() {
                     {project.title}
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+
+                  {/* Play button overlay */}
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
+                      <FaPlay className="text-white text-xl ml-1" />
+                    </div>
+                  </motion.div>
                 </div>
                 <div className="p-8">
                   <h3 className="font-semibold text-white mb-4 text-xl">
@@ -490,19 +907,21 @@ export default function Home() {
                   </div>
                   <div className="flex gap-4">
                     <motion.a
-                      href="#"
-                      className="text-purple-400 hover:text-purple-300 text-sm font-medium"
+                      href={project.liveUrl}
+                      className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium"
                       whileHover={{ x: 5 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
+                      <FaExternalLinkAlt />
                       Live Demo
                     </motion.a>
                     <motion.a
-                      href="#"
-                      className="text-white/60 hover:text-white/80 text-sm font-medium"
+                      href={project.githubUrl}
+                      className="flex items-center gap-2 text-white/60 hover:text-white/80 text-sm font-medium"
                       whileHover={{ x: 5 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
+                      <FaGithub />
                       GitHub
                     </motion.a>
                   </div>
@@ -513,11 +932,14 @@ export default function Home() {
         </div>
       </ScrollSection>
 
-      {/* Contact Section */}
-      <ScrollSection id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Enhanced Contact Section */}
+      <ScrollSection
+        id="contact"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
+      >
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
-            className="text-4xl font-bold text-white mb-16"
+            className="text-5xl font-bold text-white mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -630,7 +1052,7 @@ export default function Home() {
         </div>
       </ScrollSection>
 
-      {/* Footer */}
+      {/* Enhanced Footer */}
       <motion.footer
         className="py-12 px-4 sm:px-6 lg:px-8 bg-black/20 backdrop-blur-sm text-center border-t border-white/10"
         initial={{ opacity: 0 }}
@@ -648,7 +1070,7 @@ export default function Home() {
   );
 }
 
-// Scroll Section Component
+// Enhanced Scroll Section Component
 function ScrollSection({ id, className, children }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
