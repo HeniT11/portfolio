@@ -261,18 +261,18 @@ export default function Home() {
               <motion.div
                 className="w-48 h-48 mx-auto mb-8 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 flex items-center justify-center relative overflow-hidden"
                 whileHover={{ scale: 1.05, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
                 animate={{
                   boxShadow: [
                     "0 0 20px rgba(147, 51, 234, 0.3)",
                     "0 0 40px rgba(147, 51, 234, 0.6)",
-                    "0 0 20px rgba(147, 51, 234, 0.3)",
                   ],
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut",
+                  type: "spring",
+                  stiffness: 300,
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 animate-spin-slow" />
@@ -328,9 +328,8 @@ export default function Home() {
               <motion.p
                 className="text-2xl sm:text-3xl text-white/80 mb-8"
                 initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
                 animate={{
+                  opacity: 1,
                   y: [0, -5, 0],
                 }}
                 transition={{
@@ -516,10 +515,14 @@ export default function Home() {
                   key={item.title}
                   className="p-8 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-all duration-300"
                   whileHover={{ scale: 1.02, x: 10 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 300,
+                  }}
                   viewport={{ once: true }}
                 >
                   <div className="flex items-center gap-4">
@@ -559,7 +562,7 @@ export default function Home() {
           <div className="space-y-12">
             {[
               {
-                company: "Freelance",
+                company: "Freelance (Current)",
                 position: "Frontend Developer",
                 duration: "Dec 2023 - Present",
                 description:
@@ -572,7 +575,7 @@ export default function Home() {
                 ],
               },
               {
-                company: "Freelance",
+                company: "Freelance (Previous)",
                 position: "Full Stack Developer",
                 duration: "Jul 2023 - Nov 2023",
                 description:
@@ -695,6 +698,7 @@ export default function Home() {
                       <motion.span
                         className="text-white/60 text-sm bg-white/10 px-3 py-1 rounded-full"
                         whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 300 }}
                       >
                         {job.duration}
                       </motion.span>
@@ -1117,12 +1121,13 @@ export default function Home() {
                       key={skill.name}
                       className="p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:border-purple-400/50 transition-all duration-300"
                       whileHover={{ scale: 1.05, y: -10 }}
-                      transition={{ type: "spring", stiffness: 300 }}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{
                         duration: 0.6,
                         delay: categoryIndex * 0.2 + index * 0.1,
+                        type: "spring",
+                        stiffness: 300,
                       }}
                       viewport={{ once: true }}
                     >
@@ -1360,10 +1365,14 @@ export default function Home() {
                 key={project.title}
                 className="group relative bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 hover:border-purple-400/50 transition-all duration-300"
                 whileHover={{ scale: 1.02, y: -10 }}
-                transition={{ type: "spring", stiffness: 300 }}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{
+                  duration: 0.6,
+                  delay: index * 0.2,
+                  type: "spring",
+                  stiffness: 300,
+                }}
                 viewport={{ once: true }}
               >
                 <div
@@ -1481,10 +1490,14 @@ export default function Home() {
                 className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group"
                 whileHover={{ scale: 1.1, y: -5 }}
                 whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400 }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.6 + index * 0.1,
+                  type: "spring",
+                  stiffness: 400,
+                }}
                 viewport={{ once: true }}
               >
                 <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20 group-hover:border-purple-400/50 transition-colors">
