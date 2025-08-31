@@ -1335,6 +1335,26 @@ export default function Home() {
                 githubUrl: "#",
                 image: "/api/placeholder/400/250",
               },
+              {
+                title: "Ringback Tone Customizing App",
+                description:
+                  "Mobile application for customizing ringback tones with Remix.js, React and Express.js backend integration.",
+                gradient: "from-purple-500 to-indigo-600",
+                tags: ["Remix.js", "React", "Express.js"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Blog App (Medium-like)",
+                description:
+                  "Blog application similar to Medium built with Next.js, featuring content management, user publishing, and reading interface.",
+                gradient: "from-green-500 to-emerald-600",
+                tags: ["Next.js", "Blog Platform", "Content Management"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
             ].map((project, index) => (
               <motion.div
                 key={project.title}
