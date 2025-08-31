@@ -22,6 +22,9 @@ import {
   FaExternalLinkAlt,
   FaPlay,
   FaPause,
+  FaUsers,
+  FaClipboardList,
+  FaSearch,
 } from "react-icons/fa";
 import {
   SiReact,
@@ -36,6 +39,12 @@ import {
   SiPython,
   SiGit,
   SiFigma,
+  SiExpress,
+  SiNestjs,
+  SiRemix,
+  SiStrapi,
+  SiDjango,
+  SiPrisma,
 } from "react-icons/si";
 
 export default function Home() {
@@ -530,9 +539,41 @@ export default function Home() {
           <div className="space-y-12">
             {[
               {
+                company: "Freelance",
+                position: "Frontend Developer",
+                duration: "Dec 2023 - Present",
+                description:
+                  "Developed Electronic Health Records website and Medical Billing and Insurance Management system for US-based clients.",
+                technologies: ["React.js", "JavaScript", "HTML", "CSS"],
+                achievements: [
+                  "Built Electronic Health Records website",
+                  "Developed Medical Billing and Insurance Management system",
+                  "Delivered healthcare solutions for US market",
+                ],
+              },
+              {
+                company: "Freelance",
+                position: "Full Stack Developer",
+                duration: "Jul 2023 - Nov 2023",
+                description:
+                  "Developed animation-intensive betting website with real-time gaming features including Keno and Spin games.",
+                technologies: [
+                  "Next.js",
+                  "Nest.js",
+                  "BullMQ",
+                  "Socket.io",
+                  "React",
+                ],
+                achievements: [
+                  "Built real-time gaming platform with Socket.io",
+                  "Implemented queue management with BullMQ",
+                  "Created animation-intensive games (Keno and Spin)",
+                ],
+              },
+              {
                 company: "2F Capital",
                 position: "Full Stack Developer",
-                duration: "Dec 2023 - Present",
+                duration: "May 2022 - Sep 2024",
                 description:
                   "Leading development of multiple enterprise applications including royalty fee collection systems, ride hailing integrations, payment systems, and talent competition platforms.",
                 technologies: [
@@ -556,38 +597,6 @@ export default function Home() {
                   "Implemented reward system for music streaming platform subscribers",
                   "Built device financing platform with 12-month installment options connecting to banks",
                   "Developed job posting platform with admin management for jobs, trainings, and CV reviews",
-                ],
-              },
-              {
-                company: "Freelance",
-                position: "Full Stack Developer",
-                duration: "Jul 2023 - Nov 2023",
-                description:
-                  "Developed animation-intensive betting website with real-time gaming features including Keno and Spin games.",
-                technologies: [
-                  "Next.js",
-                  "Nest.js",
-                  "BullMQ",
-                  "Socket.io",
-                  "React",
-                ],
-                achievements: [
-                  "Built real-time gaming platform with Socket.io",
-                  "Implemented queue management with BullMQ",
-                  "Created animation-intensive games (Keno and Spin)",
-                ],
-              },
-              {
-                company: "Freelance",
-                position: "Frontend Developer",
-                duration: "May 2022 - Sep 2022",
-                description:
-                  "Developed Electronic Health Records website and Medical Billing and Insurance Management system for US-based clients.",
-                technologies: ["React.js", "JavaScript", "HTML", "CSS"],
-                achievements: [
-                  "Built Electronic Health Records website",
-                  "Developed Medical Billing and Insurance Management system",
-                  "Delivered healthcare solutions for US market",
                 ],
               },
               {
@@ -743,19 +752,19 @@ export default function Home() {
           <div className="space-y-12">
             {[
               {
-                category: "Frontend",
+                category: "Frontend Development",
                 skills: [
                   {
                     icon: SiReact,
-                    name: "React",
+                    name: "React.js",
                     color: "text-blue-500",
                     level: 95,
                   },
                   {
-                    icon: SiNextdotjs,
-                    name: "Next.js",
-                    color: "text-white",
-                    level: 90,
+                    icon: SiJavascript,
+                    name: "JavaScript",
+                    color: "text-yellow-400",
+                    level: 95,
                   },
                   {
                     icon: SiTypescript,
@@ -769,16 +778,10 @@ export default function Home() {
                     color: "text-cyan-500",
                     level: 92,
                   },
-                  {
-                    icon: SiJavascript,
-                    name: "JavaScript",
-                    color: "text-yellow-400",
-                    level: 95,
-                  },
                 ],
               },
               {
-                category: "Backend",
+                category: "Backend Development",
                 skills: [
                   {
                     icon: SiNodedotjs,
@@ -787,27 +790,73 @@ export default function Home() {
                     level: 90,
                   },
                   {
+                    icon: SiExpress,
+                    name: "Express.js",
+                    color: "text-gray-400",
+                    level: 90,
+                  },
+                  {
+                    icon: SiNestjs,
+                    name: "Nest.js",
+                    color: "text-red-500",
+                    level: 85,
+                  },
+                  {
+                    icon: SiDjango,
+                    name: "Django",
+                    color: "text-green-700",
+                    level: 80,
+                  },
+                ],
+              },
+              {
+                category: "Full-Stack Development",
+                skills: [
+                  {
+                    icon: SiRemix,
+                    name: "Remix.js",
+                    color: "text-purple-500",
+                    level: 92,
+                  },
+                  {
+                    icon: SiNextdotjs,
+                    name: "Next.js",
+                    color: "text-white",
+                    level: 90,
+                  },
+                  {
+                    icon: SiStrapi,
+                    name: "Strapi",
+                    color: "text-blue-400",
+                    level: 85,
+                  },
+                ],
+              },
+              {
+                category: "Databases & ORM",
+                skills: [
+                  {
+                    icon: SiPostgresql,
+                    name: "PostgreSQL",
+                    color: "text-blue-600",
+                    level: 88,
+                  },
+                  {
                     icon: SiMongodb,
                     name: "MongoDB",
                     color: "text-green-500",
                     level: 85,
                   },
                   {
-                    icon: SiPostgresql,
-                    name: "PostgreSQL",
-                    color: "text-blue-600",
+                    icon: SiPrisma,
+                    name: "Prisma",
+                    color: "text-gray-300",
                     level: 82,
-                  },
-                  {
-                    icon: SiPython,
-                    name: "Python",
-                    color: "text-blue-500",
-                    level: 80,
                   },
                 ],
               },
               {
-                category: "Tools & Others",
+                category: "DevOps & Tools",
                 skills: [
                   {
                     icon: SiDocker,
@@ -826,6 +875,41 @@ export default function Home() {
                     name: "Figma",
                     color: "text-purple-500",
                     level: 75,
+                  },
+                ],
+              },
+              {
+                category: "Soft Skills",
+                skills: [
+                  {
+                    icon: FaLightbulb,
+                    name: "Clear Communication",
+                    color: "text-green-400",
+                    level: 95,
+                  },
+                  {
+                    icon: FaUsers,
+                    name: "Team Collaboration",
+                    color: "text-blue-400",
+                    level: 90,
+                  },
+                  {
+                    icon: FaClipboardList,
+                    name: "Planning & Organization",
+                    color: "text-purple-400",
+                    level: 88,
+                  },
+                  {
+                    icon: FaSearch,
+                    name: "Attention to Detail",
+                    color: "text-yellow-400",
+                    level: 92,
+                  },
+                  {
+                    icon: FaGraduationCap,
+                    name: "Quick Learning",
+                    color: "text-cyan-400",
+                    level: 95,
                   },
                 ],
               },
