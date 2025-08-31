@@ -25,6 +25,14 @@ import {
   FaUsers,
   FaClipboardList,
   FaSearch,
+  FaShieldAlt,
+  FaKey,
+  FaHospital,
+  FaSync,
+  FaCheckCircle,
+  FaComments,
+  FaUserShield,
+  FaMobile,
 } from "react-icons/fa";
 import {
   SiReact,
@@ -45,6 +53,14 @@ import {
   SiStrapi,
   SiDjango,
   SiPrisma,
+  SiVuedotjs,
+  SiMui,
+  SiMysql,
+  SiScylladb,
+  SiGithubactions,
+  SiSocketdotio,
+  SiRedis,
+  SiCockroachlabs,
 } from "react-icons/si";
 
 export default function Home() {
@@ -171,7 +187,7 @@ export default function Home() {
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
                 <FaCode className="text-white text-sm" />
               </div>
-              Portfolio
+              Henok Tesfahun
             </motion.div>
             <div className="hidden md:flex space-x-8">
               {["about", "experience", "skills", "projects", "contact"].map(
@@ -260,8 +276,14 @@ export default function Home() {
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 animate-spin-slow" />
-                <div className="relative z-10 w-44 h-44 rounded-full bg-slate-900 flex items-center justify-center">
-                  <span className="text-6xl font-bold text-white">JD</span>
+                <div className="relative z-10 w-44 h-44 rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/profile.png"
+                    alt="Henok Tesfahun"
+                    width={176}
+                    height={176}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 {/* Floating elements around avatar */}
                 <motion.div
@@ -758,25 +780,49 @@ export default function Home() {
                     icon: SiReact,
                     name: "React.js",
                     color: "text-blue-500",
-                    level: 95,
+                    experience: "5+ years",
+                    description:
+                      "Building interactive UIs, state management, and component architecture",
                   },
                   {
                     icon: SiJavascript,
                     name: "JavaScript",
                     color: "text-yellow-400",
-                    level: 95,
+                    experience: "5+ years",
+                    description:
+                      "ES6+, async programming, DOM manipulation, and modern JS patterns",
+                  },
+                  {
+                    icon: SiVuedotjs,
+                    name: "Vue.js",
+                    color: "text-green-500",
+                    experience: "2+ years",
+                    description:
+                      "Progressive JavaScript framework with reactive data binding",
+                  },
+                  {
+                    icon: SiMui,
+                    name: "Material-UI",
+                    color: "text-blue-600",
+                    experience: "2+ years",
+                    description:
+                      "React component library with Material Design principles",
                   },
                   {
                     icon: SiTypescript,
                     name: "TypeScript",
                     color: "text-blue-600",
-                    level: 88,
+                    experience: "3+ years",
+                    description:
+                      "Type safety, interfaces, generics, and advanced TypeScript features",
                   },
                   {
                     icon: SiTailwindcss,
                     name: "Tailwind CSS",
                     color: "text-cyan-500",
-                    level: 92,
+                    experience: "3+ years",
+                    description:
+                      "Utility-first CSS, responsive design, and custom component styling",
                   },
                 ],
               },
@@ -787,25 +833,49 @@ export default function Home() {
                     icon: SiNodedotjs,
                     name: "Node.js",
                     color: "text-green-600",
-                    level: 90,
+                    experience: "5+ years",
+                    description:
+                      "Server-side development, REST APIs, and real-time applications",
                   },
                   {
                     icon: SiExpress,
                     name: "Express.js",
                     color: "text-gray-400",
-                    level: 90,
+                    experience: "5+ years",
+                    description:
+                      "Web application framework, middleware, and API development",
                   },
                   {
                     icon: SiNestjs,
                     name: "Nest.js",
                     color: "text-red-500",
-                    level: 85,
+                    experience: "2+ years",
+                    description:
+                      "Scalable server-side applications with dependency injection",
                   },
                   {
                     icon: SiDjango,
                     name: "Django",
                     color: "text-green-700",
-                    level: 80,
+                    experience: "1+ year",
+                    description:
+                      "Python web framework, ORM, and rapid development",
+                  },
+                  {
+                    icon: SiSocketdotio,
+                    name: "Socket.io",
+                    color: "text-blue-400",
+                    experience: "3+ years",
+                    description:
+                      "Real-time bidirectional communication and event-driven applications",
+                  },
+                  {
+                    icon: FaRocket,
+                    name: "BullMQ",
+                    color: "text-purple-500",
+                    experience: "2+ years",
+                    description:
+                      "Redis-based job queue for Node.js with priority and delay support",
                   },
                 ],
               },
@@ -816,19 +886,24 @@ export default function Home() {
                     icon: SiRemix,
                     name: "Remix.js",
                     color: "text-purple-500",
-                    level: 92,
+                    experience: "3+ years",
+                    description:
+                      "Full-stack React framework with server-side rendering",
                   },
                   {
                     icon: SiNextdotjs,
                     name: "Next.js",
                     color: "text-white",
-                    level: 90,
+                    experience: "4+ years",
+                    description:
+                      "React framework with SSR, SSG, and API routes",
                   },
                   {
                     icon: SiStrapi,
                     name: "Strapi",
                     color: "text-blue-400",
-                    level: 85,
+                    experience: "1+ year",
+                    description: "Headless CMS with REST and GraphQL APIs",
                   },
                 ],
               },
@@ -839,19 +914,50 @@ export default function Home() {
                     icon: SiPostgresql,
                     name: "PostgreSQL",
                     color: "text-blue-600",
-                    level: 88,
+                    experience: "4+ years",
+                    description:
+                      "Relational database design, queries, and optimization",
                   },
                   {
-                    icon: SiMongodb,
-                    name: "MongoDB",
-                    color: "text-green-500",
-                    level: 85,
+                    icon: SiMysql,
+                    name: "MySQL",
+                    color: "text-blue-500",
+                    experience: "3+ years",
+                    description:
+                      "Relational database management and optimization",
+                  },
+
+                  {
+                    icon: SiScylladb,
+                    name: "ScyllaDB",
+                    color: "text-purple-500",
+                    experience: "2+ years",
+                    description:
+                      "High-performance NoSQL database with Cassandra compatibility",
                   },
                   {
                     icon: SiPrisma,
                     name: "Prisma",
                     color: "text-gray-300",
-                    level: 82,
+                    experience: "3+ years",
+                    description:
+                      "Database toolkit with type-safe queries and migrations",
+                  },
+                  {
+                    icon: SiRedis,
+                    name: "Redis",
+                    color: "text-red-500",
+                    experience: "2+ years",
+                    description:
+                      "In-memory data structure store, caching, and session management",
+                  },
+                  {
+                    icon: SiCockroachlabs,
+                    name: "CockroachDB",
+                    color: "text-green-600",
+                    experience: "3+ years",
+                    description:
+                      "Distributed SQL database with global consistency and scalability",
                   },
                 ],
               },
@@ -862,19 +968,92 @@ export default function Home() {
                     icon: SiDocker,
                     name: "Docker",
                     color: "text-blue-500",
-                    level: 85,
+                    experience: "1+ year",
+                    description:
+                      "Containerization, Docker Compose, and deployment",
                   },
                   {
                     icon: SiGit,
                     name: "Git",
                     color: "text-orange-500",
-                    level: 90,
+                    experience: "5+ years",
+                    description:
+                      "Version control, branching strategies, and collaboration",
                   },
                   {
-                    icon: SiFigma,
-                    name: "Figma",
+                    icon: SiGithubactions,
+                    name: "GitHub Actions",
                     color: "text-purple-500",
-                    level: 75,
+                    experience: "1+ year",
+                    description:
+                      "CI/CD pipelines, automated testing, and deployment workflows",
+                  },
+                ],
+              },
+              {
+                category: "Security & Compliance",
+                skills: [
+                  {
+                    icon: FaShieldAlt,
+                    name: "RBAC/ABAC",
+                    color: "text-blue-500",
+                    experience: "3+ years",
+                    description:
+                      "Role-based and attribute-based access control implementation",
+                  },
+                  {
+                    icon: FaKey,
+                    name: "JWT",
+                    color: "text-green-500",
+                    experience: "4+ years",
+                    description:
+                      "JSON Web Tokens for secure authentication and authorization",
+                  },
+
+                  {
+                    icon: FaMobile,
+                    name: "MFA",
+                    color: "text-orange-500",
+                    experience: "3+ years",
+                    description:
+                      "Multi-factor authentication with TOTP, SMS, and authenticator apps",
+                  },
+                  {
+                    icon: FaHospital,
+                    name: "HIPAA Compliance",
+                    color: "text-purple-500",
+                    experience: "2+ years",
+                    description:
+                      "Healthcare data protection and privacy regulations",
+                  },
+                ],
+              },
+              {
+                category: "Methodologies",
+                skills: [
+                  {
+                    icon: FaSync,
+                    name: "Agile",
+                    color: "text-orange-500",
+                    experience: "5+ years",
+                    description:
+                      "Scrum, Kanban, sprint planning, and iterative development",
+                  },
+                  {
+                    icon: FaCheckCircle,
+                    name: "TDD",
+                    color: "text-green-500",
+                    experience: "3+ years",
+                    description:
+                      "Test-driven development with unit and integration testing",
+                  },
+                  {
+                    icon: FaComments,
+                    name: "BDD",
+                    color: "text-blue-500",
+                    experience: "2+ years",
+                    description:
+                      "Behavior-driven development with Cucumber and Gherkin",
                   },
                 ],
               },
@@ -885,31 +1064,41 @@ export default function Home() {
                     icon: FaLightbulb,
                     name: "Clear Communication",
                     color: "text-green-400",
-                    level: 95,
+                    experience: "5+ years",
+                    description:
+                      "Effective communication with clients, teams, and stakeholders",
                   },
                   {
                     icon: FaUsers,
                     name: "Team Collaboration",
                     color: "text-blue-400",
-                    level: 90,
+                    experience: "5+ years",
+                    description:
+                      "Working effectively in cross-functional teams and remote environments",
                   },
                   {
                     icon: FaClipboardList,
                     name: "Planning & Organization",
                     color: "text-purple-400",
-                    level: 88,
+                    experience: "5+ years",
+                    description:
+                      "Project planning, task management, and deadline adherence",
                   },
                   {
                     icon: FaSearch,
                     name: "Attention to Detail",
                     color: "text-yellow-400",
-                    level: 92,
+                    experience: "5+ years",
+                    description:
+                      "Code quality, testing, and thorough problem-solving",
                   },
                   {
                     icon: FaGraduationCap,
                     name: "Quick Learning",
                     color: "text-cyan-400",
-                    level: 95,
+                    experience: "5+ years",
+                    description:
+                      "Adapting to new technologies and frameworks rapidly",
                   },
                 ],
               },
@@ -946,21 +1135,15 @@ export default function Home() {
                             {skill.name}
                           </h4>
                           <p className="text-white/60 text-sm">
-                            {skill.level}%
+                            {skill.experience}
                           </p>
                         </div>
                       </div>
 
-                      {/* Progress Bar */}
-                      <div className="w-full bg-white/20 rounded-full h-2">
-                        <motion.div
-                          className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                          viewport={{ once: true }}
-                        />
-                      </div>
+                      {/* Skill Description */}
+                      <p className="text-white/70 text-sm leading-relaxed">
+                        {skill.description}
+                      </p>
                     </motion.div>
                   ))}
                 </div>
