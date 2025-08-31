@@ -40,7 +40,6 @@ import {
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -51,7 +50,16 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   // Floating particles effect
-  const [particles, setParticles] = useState([]);
+  const [particles, setParticles] = useState<
+    Array<{
+      id: number;
+      x: number;
+      y: number;
+      size: number;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
 
   useEffect(() => {
     const newParticles = Array.from({ length: 30 }, (_, i) => ({
@@ -283,7 +291,7 @@ export default function Home() {
               >
                 Hi, I'm{" "}
                 <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
-                  John Doe
+                  Henok Tesfahun
                 </span>
               </motion.h1>
 
@@ -303,7 +311,7 @@ export default function Home() {
                   delay: 1,
                 }}
               >
-                Full-Stack Developer & UI/UX Designer
+                Software Engineer
               </motion.p>
 
               {/* Enhanced Description */}
@@ -313,9 +321,11 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
               >
-                I create beautiful, functional, and user-centered digital
-                experiences. Passionate about clean code, innovative design, and
-                solving complex problems.
+                I am a software engineer with over five years of hands-on
+                experience building modern web applications using React,
+                Node.js, Next.js, and Remix.js. I have successfully delivered
+                more than 10 projects, each sharpening my expertise in creating
+                sleek, efficient, and scalable solutions.
               </motion.p>
 
               {/* Enhanced CTA Buttons */}
@@ -363,7 +373,7 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 1 }}
               >
                 {[
-                  { number: "50+", label: "Projects", icon: FaCode },
+                  { number: "10+", label: "Projects", icon: FaCode },
                   { number: "5+", label: "Years", icon: FaBriefcase },
                   { number: "100%", label: "Satisfaction", icon: FaStar },
                 ].map((stat, index) => (
@@ -391,7 +401,7 @@ export default function Home() {
       </motion.section>
 
       {/* Enhanced About Section */}
-      <ScrollSection
+      <AnimatedSection
         id="about"
         className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
       >
@@ -407,21 +417,22 @@ export default function Home() {
           </motion.h2>
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <p className="text-lg text-white/80 mb-8 leading-relaxed">
-                I'm a passionate full-stack developer with over 5 years of
-                experience building web applications. I specialize in React,
-                Node.js, and modern web technologies, creating scalable and
-                maintainable solutions.
-              </p>
-              <p className="text-lg text-white/80 mb-8 leading-relaxed">
-                When I'm not coding, you can find me exploring new technologies,
-                contributing to open-source projects, or sharing knowledge with
-                the developer community.
+                I am a software engineer with over five years of hands-on
+                experience building modern web applications using React,
+                Node.js, Next.js, and Remix.js. I have successfully delivered
+                more than 10 projects, each sharpening my expertise in creating
+                sleek, efficient, and scalable solutions. My work reflects a
+                balance of technical precision and creative problem-solving,
+                allowing me to approach complex challenges with confidence.
+                Backed by a degree in Computer Engineering from Addis Ababa
+                Institute of Technology, I combine strong academic foundations
+                with practical industry experience to consistently deliver
+                high-quality applications.
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <motion.div
@@ -430,7 +441,7 @@ export default function Home() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="text-3xl font-bold text-purple-400 mb-2">
-                    50+
+                    10+
                   </div>
                   <div className="text-sm text-white/60">
                     Projects Completed
@@ -450,21 +461,21 @@ export default function Home() {
             </motion.div>
             <motion.div
               className="space-y-6"
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
               {[
                 {
                   icon: FaGraduationCap,
                   title: "Education",
-                  content: "B.S. Computer Science, University of Technology",
+                  content:
+                    "Computer Engineering, Addis Ababa Institute of Technology",
                 },
                 {
                   icon: FaPalette,
                   title: "Location",
-                  content: "San Francisco, CA (Open to Remote)",
+                  content: "Addis Ababa, Ethiopia",
                 },
                 {
                   icon: FaLightbulb,
@@ -502,10 +513,10 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </ScrollSection>
+      </AnimatedSection>
 
       {/* New Work Experience Section */}
-      <ScrollSection id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
+      <AnimatedSection id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.h2
             className="text-5xl font-bold text-center text-white mb-16"
@@ -519,42 +530,103 @@ export default function Home() {
           <div className="space-y-12">
             {[
               {
-                company: "TechCorp Inc.",
-                position: "Senior Full-Stack Developer",
-                duration: "2022 - Present",
+                company: "2F Capital",
+                position: "Full Stack Developer",
+                duration: "Dec 2023 - Present",
                 description:
-                  "Leading development of enterprise web applications using React, Node.js, and cloud technologies. Mentoring junior developers and implementing best practices.",
-                technologies: ["React", "Node.js", "AWS", "Docker", "MongoDB"],
+                  "Leading development of multiple enterprise applications including royalty fee collection systems, ride hailing integrations, payment systems, and talent competition platforms.",
+                technologies: [
+                  "Remix.js",
+                  "Next.js",
+                  "Express.js",
+                  "PostgreSQL",
+                  "Playwright",
+                  "Cypress",
+                  "Socket.io",
+                ],
                 achievements: [
-                  "Reduced load times by 40%",
-                  "Led team of 5 developers",
-                  "Implemented CI/CD pipeline",
+                  "Built royalty fee collection and distribution system using Remix.js and PostgreSQL",
+                  "Implemented comprehensive testing with Playwright and Cypress",
+                  "Developed ride hailing system integration with Express.js and Huawei's Macle to create a mini app",
+                  "Created ringback tone customizing app with Remix.js, React and Express.js",
+                  "Built SMS gateway with Remix.js, Node.js and Kannel",
+                  "Developed payment and subscription system for music streaming platform (Including a mini app)",
+                  "Built blog app like Medium using Next.js",
+                  "Created talent competition hosting website using Remix.js",
+                  "Implemented reward system for music streaming platform subscribers",
+                  "Built device financing platform with 12-month installment options connecting to banks",
+                  "Developed job posting platform with admin management for jobs, trainings, and CV reviews",
                 ],
               },
               {
-                company: "StartupXYZ",
-                position: "Full-Stack Developer",
-                duration: "2020 - 2022",
+                company: "Freelance",
+                position: "Full Stack Developer",
+                duration: "Jul 2023 - Nov 2023",
                 description:
-                  "Built scalable web applications from scratch. Collaborated with design team to create intuitive user experiences.",
-                technologies: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
+                  "Developed animation-intensive betting website with real-time gaming features including Keno and Spin games.",
+                technologies: [
+                  "Next.js",
+                  "Nest.js",
+                  "BullMQ",
+                  "Socket.io",
+                  "React",
+                ],
                 achievements: [
-                  "Built 3 major features",
-                  "Improved UX by 60%",
-                  "Reduced bugs by 30%",
+                  "Built real-time gaming platform with Socket.io",
+                  "Implemented queue management with BullMQ",
+                  "Created animation-intensive games (Keno and Spin)",
                 ],
               },
               {
-                company: "Digital Agency",
+                company: "Freelance",
                 position: "Frontend Developer",
-                duration: "2019 - 2020",
+                duration: "May 2022 - Sep 2022",
                 description:
-                  "Created responsive websites and web applications for various clients. Focused on performance and accessibility.",
-                technologies: ["React", "JavaScript", "CSS3", "WordPress"],
+                  "Developed Electronic Health Records website and Medical Billing and Insurance Management system for US-based clients.",
+                technologies: ["React.js", "JavaScript", "HTML", "CSS"],
                 achievements: [
-                  "Delivered 15+ projects",
-                  "Achieved 95% client satisfaction",
-                  "Optimized performance",
+                  "Built Electronic Health Records website",
+                  "Developed Medical Billing and Insurance Management system",
+                  "Delivered healthcare solutions for US market",
+                ],
+              },
+              {
+                company: "Ice Addis",
+                position: "Full Stack Developer",
+                duration: "Nov 2020 - Feb 2020",
+                description:
+                  "Developed platform connecting Honey Farmers with Investors for equipment investment and profit sharing.",
+                technologies: ["Vue.js", "Laravel", "PHP", "MySQL"],
+                achievements: [
+                  "Built investment platform for honey farming",
+                  "Implemented profit sharing system",
+                  "Connected farmers with investors",
+                ],
+              },
+              {
+                company: "ZAYTECH IT SOLUTIONS",
+                position: "Full Stack Developer",
+                duration: "Sep 2020 - Nov 2020",
+                description:
+                  "Developed full-stack websites with content management systems and database design.",
+                technologies: ["HTML", "CSS", "PHP", "MySQL"],
+                achievements: [
+                  "Built full-stack websites",
+                  "Designed and implemented databases",
+                  "Created admin content management system",
+                ],
+              },
+              {
+                company: "Gobeze Consult",
+                position: "Full Stack Developer",
+                duration: "Feb 2020 - Mar 2020",
+                description:
+                  "Developed unit rent management website with user authentication and building registration features.",
+                technologies: ["React.js", "Django", "SQLite"],
+                achievements: [
+                  "Built unit rent management system",
+                  "Implemented user authentication (Registration and Login)",
+                  "Created building registration and management features",
                 ],
               },
             ].map((job, index) => (
@@ -649,10 +721,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </ScrollSection>
+      </AnimatedSection>
 
       {/* Enhanced Skills Section */}
-      <ScrollSection
+      <AnimatedSection
         id="skills"
         className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
       >
@@ -812,10 +884,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </ScrollSection>
+      </AnimatedSection>
 
       {/* Enhanced Projects Section */}
-      <ScrollSection id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
+      <AnimatedSection id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.h2
             className="text-5xl font-bold text-center text-white mb-16"
@@ -930,10 +1002,10 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </ScrollSection>
+      </AnimatedSection>
 
       {/* Enhanced Contact Section */}
-      <ScrollSection
+      <AnimatedSection
         id="contact"
         className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5 backdrop-blur-sm"
       >
@@ -967,17 +1039,17 @@ export default function Home() {
             {[
               {
                 icon: FaEnvelope,
-                href: "mailto:john.doe@example.com",
+                href: "mailto:heni.me.tes@gmail.com",
                 label: "Email",
               },
               {
                 icon: FaGithub,
-                href: "https://github.com/johndoe",
+                href: "https://github.com/HeniT11",
                 label: "GitHub",
               },
               {
                 icon: FaLinkedin,
-                href: "https://linkedin.com/in/johndoe",
+                href: "https://www.linkedin.com/in/henok-tesfahun-32228a19a/",
                 label: "LinkedIn",
               },
               {
@@ -1050,7 +1122,7 @@ export default function Home() {
             </form>
           </motion.div>
         </div>
-      </ScrollSection>
+      </AnimatedSection>
 
       {/* Enhanced Footer */}
       <motion.footer
@@ -1062,7 +1134,7 @@ export default function Home() {
       >
         <div className="max-w-6xl mx-auto">
           <p className="text-white/60">
-            © 2024 John Doe. Built with Next.js and Tailwind CSS.
+            © 2024 Henok Tesfahun. Built with Next.js and Tailwind CSS.
           </p>
         </div>
       </motion.footer>
@@ -1070,21 +1142,28 @@ export default function Home() {
   );
 }
 
-// Enhanced Scroll Section Component
-function ScrollSection({ id, className, children }) {
+// Simple Animated Section Component
+function AnimatedSection({
+  id,
+  className,
+  children,
+}: {
+  id: string;
+  className: string;
+  children: React.ReactNode;
+}) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <motion.section
-      ref={ref}
-      id={id}
-      className={className}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8 }}
-    >
-      {children}
-    </motion.section>
+    <section ref={ref} id={id} className={className}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.5 }}
+      >
+        {children}
+      </motion.div>
+    </section>
   );
 }
