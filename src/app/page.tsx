@@ -1370,7 +1370,7 @@ export default function Home() {
                   className={`h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}
                 >
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
-                  <span className="text-white text-2xl font-bold relative z-10">
+                  <span className="text-white text-2xl font-bold relative z-10 text-center px-6 leading-tight">
                     {project.title}
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
