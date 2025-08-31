@@ -509,7 +509,7 @@ export default function Home() {
                 {
                   icon: FaLightbulb,
                   title: "Interests",
-                  content: "Open Source, AI/ML, Web3, Travel",
+                  content: "AI, music, gaming",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -1180,7 +1180,7 @@ export default function Home() {
                 description:
                   "An AI-powered fantasy football algorithm that helps users make optimal team selections and predictions for Fantasy Premier League.",
                 gradient: "from-green-500 to-teal-600",
-                tags: ["AI/ML", "Python", "Vercel"],
+                tags: ["Next.js", "Brain.js", "FPL API"],
                 liveUrl: "https://fpl-ai-tau.vercel.app",
                 githubUrl: "#",
                 image: "/api/placeholder/400/250",
@@ -1200,7 +1200,7 @@ export default function Home() {
                 description:
                   "A music streaming platform clone with playlist management, music player controls, and user interface similar to Spotify.",
                 gradient: "from-green-400 to-green-600",
-                tags: ["React", "JavaScript", "CSS"],
+                tags: ["Next.js", "Prisma"],
                 liveUrl: "#",
                 githubUrl: "#",
                 image: "/api/placeholder/400/250",
@@ -1240,7 +1240,7 @@ export default function Home() {
                 description:
                   "Healthcare management system for US-based clients. Features patient records, medical billing, and insurance management.",
                 gradient: "from-emerald-500 to-teal-600",
-                tags: ["React.js", "JavaScript", "Healthcare"],
+                tags: ["React.js", "JavaScript", "HIPAA"],
                 liveUrl: "#",
                 githubUrl: "#",
                 image: "/api/placeholder/400/250",
@@ -1392,26 +1392,26 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
-                  <div className="flex gap-4">
-                    <motion.a
-                      href={project.liveUrl}
-                      className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium"
-                      whileHover={{ x: 5 }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
-                      <FaExternalLinkAlt />
-                      Live Demo
-                    </motion.a>
-                    <motion.a
-                      href={project.githubUrl}
-                      className="flex items-center gap-2 text-white/60 hover:text-white/80 text-sm font-medium"
-                      whileHover={{ x: 5 }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
-                      <FaGithub />
-                      GitHub
-                    </motion.a>
-                  </div>
+                  {/* <div className="flex gap-4">
+                     <motion.a
+                       href={project.liveUrl}
+                       className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium"
+                       whileHover={{ x: 5 }}
+                       transition={{ type: "spring", stiffness: 400 }}
+                     >
+                       <FaExternalLinkAlt />
+                       Live Demo
+                     </motion.a>
+                     <motion.a
+                       href={project.githubUrl}
+                       className="flex items-center gap-2 text-white/60 hover:text-white/80 text-sm font-medium"
+                       whileHover={{ x: 5 }}
+                       transition={{ type: "spring", stiffness: 400 }}
+                     >
+                       <FaGithub />
+                       GitHub
+                     </motion.a>
+                   </div> */}
                 </div>
               </motion.div>
             ))}
@@ -1468,9 +1468,9 @@ export default function Home() {
                 label: "LinkedIn",
               },
               {
-                icon: FaTwitter,
-                href: "https://twitter.com/johndoe",
-                label: "Twitter",
+                icon: FaMobile,
+                href: "tel:+251915572560",
+                label: "+251915572560",
               },
             ].map((social, index) => (
               <motion.a
