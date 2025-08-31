@@ -277,11 +277,9 @@ export default function Home() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 animate-spin-slow" />
                 <div className="relative z-10 w-44 h-44 rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
-                  <Image
+                  <img
                     src="/profile.png"
                     alt="Henok Tesfahun"
-                    width={176}
-                    height={176}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1168,31 +1166,171 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: "E-Commerce Platform",
+                title: "Disney+ Clone",
                 description:
-                  "A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.",
+                  "A full-stack Disney+ clone website built with React.js and Firebase. Features include user authentication, movie streaming interface, and responsive design.",
                 gradient: "from-blue-500 to-purple-600",
-                tags: ["React", "Node.js", "MongoDB"],
-                liveUrl: "#",
+                tags: ["React.js", "Firebase", "JavaScript"],
+                liveUrl: "https://disney-clone-f52e2.web.app",
                 githubUrl: "#",
                 image: "/api/placeholder/400/250",
               },
               {
-                title: "Task Manager App",
+                title: "Fantasy Football Algorithm",
                 description:
-                  "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+                  "An AI-powered fantasy football algorithm that helps users make optimal team selections and predictions for Fantasy Premier League.",
                 gradient: "from-green-500 to-teal-600",
-                tags: ["Next.js", "TypeScript", "PostgreSQL"],
+                tags: ["AI/ML", "Python", "Vercel"],
+                liveUrl: "https://fpl-ai-tau.vercel.app",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Netflix Clone",
+                description:
+                  "A Netflix clone with movie browsing, user authentication, and streaming interface. Built with modern web technologies.",
+                gradient: "from-red-500 to-black",
+                tags: ["React", "Firebase", "CSS"],
                 liveUrl: "#",
                 githubUrl: "#",
                 image: "/api/placeholder/400/250",
               },
               {
-                title: "AI Chat Application",
+                title: "Spotify Clone",
                 description:
-                  "An intelligent chat application powered by AI, featuring natural language processing, sentiment analysis, and smart responses.",
+                  "A music streaming platform clone with playlist management, music player controls, and user interface similar to Spotify.",
+                gradient: "from-green-400 to-green-600",
+                tags: ["React", "JavaScript", "CSS"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Minecraft Clone",
+                description:
+                  "A 3D block-based game inspired by Minecraft, featuring world generation, block placement, and basic game mechanics.",
+                gradient: "from-yellow-500 to-orange-600",
+                tags: ["Three.js", "JavaScript", "WebGL"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Job Website Backend",
+                description:
+                  "Full-stack job website with backend and admin panel. Features job posting, application management, and user authentication.",
+                gradient: "from-indigo-500 to-purple-600",
+                tags: ["PHP", "MySQL", "HTML/CSS"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Responsive Landing Page",
+                description:
+                  "Full-stack responsive landing page with backend and admin panel. Built with HTML, CSS, and PHP for client projects.",
+                gradient: "from-cyan-500 to-blue-600",
+                tags: ["HTML", "CSS", "PHP"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Electronic Health Records",
+                description:
+                  "Healthcare management system for US-based clients. Features patient records, medical billing, and insurance management.",
+                gradient: "from-emerald-500 to-teal-600",
+                tags: ["React.js", "JavaScript", "Healthcare"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Betting Website",
+                description:
+                  "Animation-intensive betting website with real-time gaming features including Keno and Spin games with Socket.io integration.",
+                gradient: "from-purple-500 to-pink-600",
+                tags: ["Next.js", "Nest.js", "Socket.io"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Royalty Fee Collection System",
+                description:
+                  "Enterprise application for royalty fee collection and distribution system using Remix.js and PostgreSQL with comprehensive testing.",
+                gradient: "from-blue-600 to-indigo-700",
+                tags: ["Remix.js", "PostgreSQL", "Playwright"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Ride Hailing Integration",
+                description:
+                  "Ride hailing system integration with Express.js and Huawei's Macle to create a mini app for transportation services.",
                 gradient: "from-orange-500 to-red-600",
-                tags: ["React", "Python", "OpenAI"],
+                tags: ["Express.js", "Huawei Macle", "Mini App"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Music Streaming Platform",
+                description:
+                  "Complete music streaming platform with payment system, subscription management, and reward system for subscribers.",
+                gradient: "from-pink-500 to-purple-600",
+                tags: ["Remix.js", "React", "Payment System"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Talent Competition Platform",
+                description:
+                  "Talent competition hosting website with user registration, voting system, and event management features.",
+                gradient: "from-yellow-400 to-orange-500",
+                tags: ["Remix.js", "Event Management", "Voting System"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Device Financing Platform",
+                description:
+                  "Device financing platform with 12-month installment options connecting to banks for payment processing.",
+                gradient: "from-green-600 to-emerald-700",
+                tags: ["Fintech", "Bank Integration", "Installments"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Job Posting Platform",
+                description:
+                  "Comprehensive job posting platform with admin management for jobs, trainings, and CV reviews.",
+                gradient: "from-slate-600 to-gray-700",
+                tags: ["Job Management", "Admin Panel", "CV Review"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Honey Farming Investment Platform",
+                description:
+                  "Platform connecting Honey Farmers with Investors for equipment investment and profit sharing system.",
+                gradient: "from-amber-500 to-yellow-600",
+                tags: ["Vue.js", "Laravel", "Investment Platform"],
+                liveUrl: "#",
+                githubUrl: "#",
+                image: "/api/placeholder/400/250",
+              },
+              {
+                title: "Unit Rent Management System",
+                description:
+                  "Unit rent management website with user authentication, building registration, and rental management features.",
+                gradient: "from-blue-400 to-cyan-500",
+                tags: ["React.js", "Django", "SQLite"],
                 liveUrl: "#",
                 githubUrl: "#",
                 image: "/api/placeholder/400/250",
@@ -1216,16 +1354,6 @@ export default function Home() {
                     {project.title}
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-
-                  {/* Play button overlay */}
-                  <motion.div
-                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
-                      <FaPlay className="text-white text-xl ml-1" />
-                    </div>
-                  </motion.div>
                 </div>
                 <div className="p-8">
                   <h3 className="font-semibold text-white mb-4 text-xl">
